@@ -12,11 +12,8 @@ contract Owned {
   }
 
   //Access control modifier
-  modifier onlyOwner() {
-    require(
-      msg.sender == owner,
-      "only the contract owner can call this function"
-    );
+  modifier onlyOwner {
+    require(msg.sender == owner, "only the contract owner can call this function");
     _;
   }
 }
@@ -29,7 +26,7 @@ contract Mortal is Owned {
 }
 
 contract Faucet is Mortal {
-  event Withdrawal(address indexed to, unint amount);
+  event Withdrawal(address indexed to, uint amount);
   event Deposit(address indexed from, uint amount);
 
   //Accept  any incoming amount
@@ -38,7 +35,7 @@ contract Faucet is Mortal {
   }
 
   //Gice out ether to anyone who asks
-  function Withdrawal(uint Withdraw_amount) {
+  function Withdraw(uint Withdraw_amount) public {
     require(Withdraw_amount <= 0.1 ether);
 
     require(
@@ -47,8 +44,8 @@ contract Faucet is Mortal {
     );
 
     //Send the amount to the address that requested it
-    msg.sender.transfer(withdraw_amount);
+    msg.sender.transfer(Withdraw_amount);
 
-    emit Withdrawal(msg.sender, withdrawal_amount);
+    emit Withdrawal(msg.sender, Withdraw_amount);
   }
 }
